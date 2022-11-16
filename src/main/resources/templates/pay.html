@@ -8,7 +8,7 @@
 
 </head>
 <body>
-
+<h2>카카오페이 결재 테스트 템플릿</h2>
 <script>
 
     $(function(){
@@ -21,7 +21,10 @@
         //@@@@@@@@ 2번 @@@@@@@@
         //url에서 parameter 가져오기 --> price값 알기 위해서
         var getParam = function(key){
-            var _parammap = {};
+            var _parammap = {
+                url : "http://localhost:8080/pay?price=1000"
+            };
+
             document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
                 function decode(s) {
                     return decodeURIComponent(s.split("+").join(" "));
@@ -38,7 +41,7 @@
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'vivipayment',
+            name : 'tobias',
             amount : getParam("price"),
             buyer_email : '이메일 넣기',
             buyer_name : '이름 넣기',
@@ -75,7 +78,7 @@
                     }
                 });
                 //성공시 이동할 페이지
-                location.href='<%=request.getContextPath()%>/order/paySuccess?msg='+msg;
+                location.href='<%=request.getContextPath()%>/pay/completed?msg='+msg;
             } else {
                 msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
